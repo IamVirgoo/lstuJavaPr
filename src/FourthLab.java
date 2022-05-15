@@ -238,7 +238,7 @@ class TreeNode {
 
     @Override
     public String toString() {
-        return "Node {" +
+        return "Tree.Node {" +
                 "value=" + value +
                 ", leftChild=" + leftChild +
                 ", rightChild=" + rightChild +
