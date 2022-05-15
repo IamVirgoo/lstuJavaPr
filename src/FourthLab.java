@@ -14,9 +14,6 @@ public class FourthLab {
         tree.insertNode("Abababa");
 
         tree.printTree();
-
-        TreeNode foundNode = tree.findNodeByValue("Baba");
-        foundNode.printNode();
     }
 
     public static String getRandomString(int length) {
