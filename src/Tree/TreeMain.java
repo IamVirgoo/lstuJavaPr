@@ -5,7 +5,8 @@ import java.util.*;
 class TreeMain {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        Node<String> root = new Node<>("root");
+        Node<String> root = new Node<>("root", 0);
+        Node<String> temp = new Node<>("temp", -1);
         Node<String> parent = null;
 
         boolean flag = false;
@@ -25,9 +26,9 @@ class TreeMain {
                     System.out.print(gap + "Enter the tree length: ");
                     int length = scan.nextInt();
                     for (int i = 0; i < length; i++) {
-                        parent = root.addChild(new Node<>(getString(5)));
+                        parent = root.addChild(new Node<>(getString(5), index++));
                         for (int j = 0; j < length; j++) {
-                            Node<String> leaf = parent.addChild(new Node<>(getString(5)));
+                            Node<String> leaf = parent.addChild(new Node<>(getString(5), index++));
                         }
                     }
                 }
@@ -38,10 +39,10 @@ class TreeMain {
                 }
                 /*Need refactor*/
                 case 3 -> {
-                    System.out.print(gap + "Enter the search values: ");
-                    String value = scan.next();
-                    search(root, value);
-                    search(parent, value);
+                    System.out.print(gap + "Enter the remove data index: ");
+                    int newIndex = scan.nextInt();
+                    root.Tree(root, temp, newIndex);
+                    root.remove(temp);
                 }
                 case 0 -> flag = true;
             }
@@ -61,7 +62,7 @@ class TreeMain {
     }
 
     private static <T> void printTree(Node<T> node, String appender) {
-        System.out.println(appender + node.getData());
+        System.out.println(appender + node.getData() + " (" + node.index + ")");
         node.getChildren().forEach(each ->  printTree(each, appender + appender));
     }
     /*Need refactor*/
@@ -79,25 +80,29 @@ class TreeMain {
     }
     public static class Node<T> {
 
+        private  int index = 0;
+
         private T data = null;
 
         private final List<Node<T>> children = new ArrayList<>();
 
         private Node<T> parent = null;
 
-        public Node(T data) {
+        public Node(T data, int index) {
             this.data = data;
+            this.index = index;
         }
 
         public Node<T> addChild(Node<T> child) {
             child.setParent(this);
+            child.index++;
             this.children.add(child);
             return child;
         }
 
-        private void remove(Node<T> child) {
-            if (child.children.size() > 0) {
-                Node<T> root = child.getChildren().get(child.getChildren().size() - 1);
+        private void remove(Node<T> child){//add index control
+            if(child.children.size()>0) {
+                Node<T> root = child.getChildren().get(child.getChildren().size()-1);
                 root.setParent(child.getParent());
                 child.getChildren().remove(child.getChildren().size() - 1);
                 root.children.addAll(child.getChildren());
@@ -106,13 +111,26 @@ class TreeMain {
                         child.getParent().getChildren().set(i, root);
                     }
                 }
-            } else {
+            }else{
                 for (int i = 0; i < child.getParent().getChildren().size(); i++) {
                     if (child.getParent().getChildren().get(i) == child) {
                         child.getParent().getChildren().remove(i);
                     }
                 }
             }
+        }
+
+        private void Tree(Node<T> node, Node<T> tmp, int index){
+            if(node.index==index){
+                //tmp=node;
+                tmp.setIndex(node.getIndex());
+                tmp.setData(node.getData());
+                tmp.setParent(node.getParent());
+                tmp.addChildren(node.getChildren());
+            }
+            Node<T> finalTmp = tmp;
+            node.getChildren().forEach(each->Tree(each, finalTmp,index));
+
         }
 
         public void addChildren(List<Node<T>> children) {
