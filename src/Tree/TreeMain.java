@@ -37,7 +37,7 @@ class TreeMain {
                     printTree(root, "-");
                     System.out.println();
                 }
-                /*Need refactor*/
+
                 case 3 -> {
                     System.out.print(gap + "Enter the remove data index: ");
                     int newIndex = scan.nextInt();
@@ -100,8 +100,8 @@ class TreeMain {
             return child;
         }
 
-        private void remove(Node<T> child){//add index control
-            if(child.children.size()>0) {
+        private void remove(Node<T> child) {
+            if (child.children.size()>0) {
                 Node<T> root = child.getChildren().get(child.getChildren().size()-1);
                 root.setParent(child.getParent());
                 child.getChildren().remove(child.getChildren().size() - 1);
@@ -111,7 +111,7 @@ class TreeMain {
                         child.getParent().getChildren().set(i, root);
                     }
                 }
-            }else{
+            } else{
                 for (int i = 0; i < child.getParent().getChildren().size(); i++) {
                     if (child.getParent().getChildren().get(i) == child) {
                         child.getParent().getChildren().remove(i);
@@ -122,7 +122,6 @@ class TreeMain {
 
         private void Tree(Node<T> node, Node<T> tmp, int index){
             if(node.index==index){
-                //tmp=node;
                 tmp.setIndex(node.getIndex());
                 tmp.setData(node.getData());
                 tmp.setParent(node.getParent());
