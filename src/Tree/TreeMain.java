@@ -156,6 +156,5 @@ class TreeMain {
         public Node<T> getParent() {
             return parent;
         }
-
     }
 }
