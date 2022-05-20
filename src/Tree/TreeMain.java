@@ -7,6 +7,7 @@ class TreeMain {
         Scanner scan = new Scanner(System.in);
         Node<String> root = new Node<>("root", 0);
         Node<String> temp = new Node<>("temp", -1);
+        int index = 0;
         Node<String> parent = null;
 
         boolean flag = false;
@@ -65,19 +66,7 @@ class TreeMain {
         System.out.println(appender + node.getData() + " (" + node.index + ")");
         node.getChildren().forEach(each ->  printTree(each, appender + appender));
     }
-    /*Need refactor*/
-    private static <T> void search(Node<T> node, String Data) {
-        int counter = 0;
-        for (Node<T> child : node.getChildren()) {
-            counter++;
-            if (Objects.equals(child.getData().toString(), Data)) {
-                System.out.println("Found in " + counter + " line on tree");
-            }
-            else {
-                System.out.println("Not Found in " + counter + " line on tree");
-            }
-        }
-    }
+
     public static class Node<T> {
 
         private  int index = 0;
@@ -101,19 +90,19 @@ class TreeMain {
         }
 
         private void remove(Node<T> child) {
-            if (child.children.size()>0) {
-                Node<T> root = child.getChildren().get(child.getChildren().size()-1);
+            if (child.children.size() > 0) {
+                Node<T> root = child.getChildren().get(child.getChildren().size() - 1);
                 root.setParent(child.getParent());
                 child.getChildren().remove(child.getChildren().size() - 1);
                 root.children.addAll(child.getChildren());
                 for (int i = 0; i < child.getParent().getChildren().size(); i++) {
-                    if (child.getParent().getChildren().get(i) == child) {
+                    if (child.getParent().getChildren().get(i).index == child.index) {
                         child.getParent().getChildren().set(i, root);
                     }
                 }
-            } else{
+            } else {
                 for (int i = 0; i < child.getParent().getChildren().size(); i++) {
-                    if (child.getParent().getChildren().get(i) == child) {
+                    if (child.getParent().getChildren().get(i).index == child.index) {
                         child.getParent().getChildren().remove(i);
                     }
                 }
@@ -145,12 +134,20 @@ class TreeMain {
             return data;
         }
 
+        public int getIndex() {
+            return index;
+        }
+
         public void setData(T data) {
             this.data = data;
         }
 
         private void setParent(Node<T> parent) {
             this.parent = parent;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
         }
 
         public Node<T> getParent() {
