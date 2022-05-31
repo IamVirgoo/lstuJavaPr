@@ -23,6 +23,7 @@ public class ThirdLab {
                 """);
         while (!flag) {
             System.out.print("Enter the number of operation: ");
+
             int OperationNumber = scan.nextInt();
 
             switch (OperationNumber) {
