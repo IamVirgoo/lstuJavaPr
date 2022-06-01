@@ -1,4 +1,4 @@
-package Graphs;
+package ForUlya;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -35,15 +35,15 @@ public class KruskalAlogrithm {
         }
         System.out.print("Vertexes: "); for (int i = 0; i < vertex.length; i++) System.out.print(vertex[i] + " ");    /*Вывод множества вершин*/
         System.out.println();
-        int[][] matrix = getSymmetricalMatrix(vertex.length);    /*Формирование симметрической матрицы смежности*/
-        KruskalAlogrithm kruskalAlogrithm = new KruskalAlogrithm(vertex, matrix);
+        int[][] matrix = getSymmetricalMatrix(vertex.length);    /*Формирование симметрической */
+        KruskalAlogrithm kruskalAlogrithm = new KruskalAlogrithm(vertex, matrix);    /*Инициализация работы самого алгоритма*/
         System.out.println('\n' + "Adjacency matrix:");
-        kruskalAlogrithm.showGraph();
+        kruskalAlogrithm.showGraph();    /*Вывод матрицы смежности*/
         System.out.println('\n' + "After sort: " + Arrays.toString(kruskalAlogrithm.getEdges()));
-        Degree[] edges = kruskalAlogrithm.getEdges();
-        kruskalAlogrithm.sort(edges);
+        Degree[] edges = kruskalAlogrithm.getEdges();    /*Вывод связей матрицы*/
+        kruskalAlogrithm.sort(edges);    /*Сортировка связей матрицы*/
         System.out.println('\n' + "Before sort: " + Arrays.toString(edges));
-        kruskalAlogrithm.Kruskal();
+        kruskalAlogrithm.Kruskal();    /*Вызов самого алгоритма выполнения*/
     }
 
     /**
@@ -97,7 +97,7 @@ public class KruskalAlogrithm {
 
     /**
      * @Title: getEdges
-     * @Description: получить набор ребер
+     * @Description: Метод возвращает массив рёбер нашего графа, представленного в виде матрицы
      * @return: Массив рёбер*/
     private Degree[] getEdges() {
         int index = 0;
@@ -114,7 +114,7 @@ public class KruskalAlogrithm {
 
     /**
      * @Title: getPosition
-     * @Description: вернуть индекс узла v
+     * @Description: метод возвращает индекс позиции вершины V
      * @param: v узел
      * @return:
      */
@@ -174,13 +174,15 @@ class Degree {
     char end;      /*еще одна точка на краю*/
     int weight;    /*Вес края*/
 
+    /*Конструктор класса для связей вершин*/
     public Degree(char start, char end, int weight) {
         super();
-        this.start = start;
-        this.end = end;
-        this.weight = weight;
+        this.start = start;    /*Инициализация стартовой позиции связи*/
+        this.end = end;    /*Инициализация конечной позиции связи*/
+        this.weight = weight;    /*Инициализация веса ребра (одной связи)*/
     }
 
+    /*Метод для вывода интерфейса*/
     @Override
     public String toString() {
         return "Degree {start = " + start + ", end = " + end + ", weight = " + weight + "}";

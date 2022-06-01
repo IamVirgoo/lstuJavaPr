@@ -7,11 +7,11 @@ import java.util.Scanner;
 public class UlyaTask3 {
     static final int LETTERS_COUNT = 'z' - 'a' + 1;    /*Переменная для функционирования метода генерации слуфайного массива char*/
     static Scanner scan = new Scanner(System.in);      /*Обьявление сканнера для возможности ввода чего-либо в программу*/
-
+    static int start, end;
 
     public static void main(String[] args) {    /*Основной метод, который и запускается при старте программы*/
         System.out.print("Enter start and end numbers for random operators: ");
-        int start = scan.nextInt(); int end = scan.nextInt();    /*Обьявление переменных для обозначения границ случайных чисел, соответсвенно start и end*/
+        start = scan.nextInt(); end = scan.nextInt();    /*Обьявление переменных для обозначения границ случайных чисел, соответсвенно start и end*/
         System.out.print("Enter the arrays size: ");
         int length = scan.nextInt();    /*Обьявление переменной для задания размерности массивов (По уполчанию в варианте задано число 20, но это методички Домашнева,
                                         так что я на всякий случай сделал возможность другого ввода)*/
@@ -194,7 +194,7 @@ public class UlyaTask3 {
     static float[] getFloatArray(int number) {
         float[] array = new float[number];
         for (int i = 0; i < number; i++) {
-            array[i] = (float) (Math.random() * 200) - 100;
+            array[i] = (float) (Math.random() * (end - start)) + start;
         }
         return array;
     }
@@ -202,7 +202,7 @@ public class UlyaTask3 {
     static int[] getIntArray(int number) {
         int[] array = new int[number];
         for (int i = 0; i < number; i++) {
-            array[i] = (int) (Math.random() * 200) - 100;
+            array[i] = (int) (Math.random() * (end - start)) + start;
         }
         return array;
     }
